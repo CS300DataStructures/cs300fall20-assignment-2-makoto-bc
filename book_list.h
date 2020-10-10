@@ -22,9 +22,11 @@ public:
 
 	void push(Book book);
 
-	void reserve(size_t size);
+	void reserve(size_t capacity);
+
+	std::optional<Book> remove(size_t index);
 	
-	std::optional<Book*> operator[](size_t i) const;
+	std::optional<Book*> operator[](size_t index) const;
 private:
 	std::unique_ptr<Book[]> _array;
 	size_t _size;

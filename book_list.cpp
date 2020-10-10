@@ -11,30 +11,45 @@ void BookList::push(Book book) {
 	_size++;
 }
 
-void BookList::reserve(size_t size) {	
-	size_t newSize = 1;
-	while (newSize < size) {
-		newSize *= 2;
+void BookList::reserve(size_t capacity) {	
+	size_t newCapacity = 1;
+	while (newCapacity < capacity) {
+		newCapacity *= 2;
 	}
 	
-	if (newSize <= _capacity) {
+	if (newCapacity <= _capacity) {
 		return;
 	}
 
-	auto newArray = std::make_unique<Book[]>(newSize);
+	auto newArray = std::make_unique<Book[]>(newCapacity);
 
 	for (size_t i = 0; i < _size; i++) {
 		std::swap(newArray[i], _array[i]);
 	}
 
 	_array = std::move(newArray);
-	_capacity = newSize;
+	_capacity = newCapacity;
 }
 
-std::optional<Book*> BookList::operator[](size_t i) const {
-	if (i >= _size) {
+std::optional<Book> BookList::remove(size_t index) {
+	if (index >= _size) {
+		return {};
+	}
+
+	Book tmp = std::move(_array[index]);
+
+	for (size_t i = index; i < _size - 1; ++i) {
+		std::swap(_array[i], _array[i + 1]);
+	}
+
+	_size--;
+	return {tmp};
+}
+
+std::optional<Book*> BookList::operator[](size_t index) const {
+	if (index >= _size) {
 		return {};
 	}
 	
-	return &_array[i];
+	return &_array[index];
 }
