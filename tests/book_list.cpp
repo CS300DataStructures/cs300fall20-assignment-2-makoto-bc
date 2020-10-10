@@ -1,25 +1,43 @@
 #include <gtest/gtest.h>
 #include "../book_list.h"
 
-TEST(BookList, push) {
+TEST(BookList, insert) {
 	BookList list;
-	list.push(Book{"0"});
-	EXPECT_EQ(*list[0].value(), Book{"0"});
-	EXPECT_FALSE(list[1].has_value());
-	
-	list.push(Book{"1"});
-	EXPECT_EQ(*list[0].value(), Book{"0"});
-	EXPECT_EQ(*list[1].value(), Book{"1"});
+	list.insert(Book{}, 1);
+	list.insert(Book{}, 2);
+	EXPECT_EQ(list.size(), 0);
+
+	list.insert(Book{"a"}, 0);
+	EXPECT_EQ(list.size(), 1);
+	EXPECT_EQ(*list[0].value(), Book{"a"});
+
+	list.insert(Book{"b"}, 0);
+	EXPECT_EQ(list.size(), 2);
+	EXPECT_EQ(*list[0].value(), Book{"b"});
+	EXPECT_EQ(*list[1].value(), Book{"a"});
+
+	list.insert(Book{"c"}, 2);
+	EXPECT_EQ(list.size(), 3);
+	EXPECT_EQ(*list[0].value(), Book{"b"});
+	EXPECT_EQ(*list[1].value(), Book{"a"});
+	EXPECT_EQ(*list[2].value(), Book{"c"});
+
+	list.insert(Book{"d"}, 1);
+	EXPECT_EQ(*list[0].value(), Book{"b"});
+	EXPECT_EQ(*list[1].value(), Book{"d"});
+	EXPECT_EQ(*list[2].value(), Book{"a"});
+	EXPECT_EQ(*list[3].value(), Book{"c"});
 }
 
 TEST(BookList, reserve) {
 	{
 		BookList list;
 		list.reserve(0);
-		EXPECT_EQ(list.capacity(), 1);
+		EXPECT_EQ(list.capacity(), 0);
 
 		list.reserve(1);
-		EXPECT_EQ(list.capacity(), 1);
+		EXPECT_EQ(list.capacity(), 2);
+		EXPECT_EQ(list.size(), 0);
 
 		list.reserve(3);
 		EXPECT_EQ(list.capacity(), 4);
@@ -31,7 +49,7 @@ TEST(BookList, reserve) {
 	}
 	{
 		BookList list;
-		list.push(Book{"title"});
+		list.insert(Book{"title"}, 0);
 		list.reserve(4);
 		EXPECT_EQ(*list[0].value(), Book{"title"});
 	}
@@ -41,13 +59,13 @@ TEST(BookList, remove) {
 	BookList list;
 	EXPECT_FALSE(list.remove(0).has_value());
 	
-	list.push(Book{"title"});
+	list.insert(Book{"title"}, 0);
 	EXPECT_EQ(list.remove(0).value(), Book{"title"});
 	EXPECT_EQ(list.size(), 0);
 	
 	// Removing first item
-	list.push(Book{"0"});
-	list.push(Book{"1"});
+	list.insert(Book{"0"}, 0);
+	list.insert(Book{"1"}, 1);
 	EXPECT_EQ(list.remove(0).value(), Book{"0"});
 	EXPECT_EQ(list.size(), 1);
 	EXPECT_EQ(*list[0].value(), Book{"1"});
@@ -56,8 +74,8 @@ TEST(BookList, remove) {
 	EXPECT_EQ(list.size(), 0);
 
 	// Removing last item
-	list.push(Book{"0"});
-	list.push(Book{"1"});
+	list.insert(Book{"0"}, 0);
+	list.insert(Book{"1"}, 1);
 	EXPECT_EQ(list.remove(1).value(), Book{"1"});
 	EXPECT_EQ(list.size(), 1);
 	EXPECT_EQ(list.capacity(), 2);
@@ -68,6 +86,6 @@ TEST(BookList, get) {
 	BookList list;
 	EXPECT_FALSE(list[0].has_value());
 	
-	list.push(Book{"0"});
+	list.insert(Book{"0"}, 0);
 	EXPECT_EQ(*list[0].value(), Book{"0"});
 }

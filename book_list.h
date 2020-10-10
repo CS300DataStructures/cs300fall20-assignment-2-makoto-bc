@@ -20,7 +20,7 @@ public:
 		return _capacity;
 	}
 
-	void push(Book book);
+	void insert(Book book, size_t index);
 
 	void reserve(size_t capacity);
 
