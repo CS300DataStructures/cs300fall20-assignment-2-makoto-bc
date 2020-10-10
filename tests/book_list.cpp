@@ -13,20 +13,28 @@ TEST(BookList, push) {
 }
 
 TEST(BookList, reserve) {
-	BookList list;
-	list.reserve(0);
-	EXPECT_EQ(list.capacity(), 1);
-	
-	list.reserve(1);
-	EXPECT_EQ(list.capacity(), 1);
+	{
+		BookList list;
+		list.reserve(0);
+		EXPECT_EQ(list.capacity(), 1);
 
-	list.reserve(3);
-	EXPECT_EQ(list.capacity(), 4);
-	
-	list.reserve(0);
-	EXPECT_EQ(list.capacity(), 4);
-	
-	EXPECT_EQ(list[0], std::optional<Book*>());
+		list.reserve(1);
+		EXPECT_EQ(list.capacity(), 1);
+
+		list.reserve(3);
+		EXPECT_EQ(list.capacity(), 4);
+
+		list.reserve(0);
+		EXPECT_EQ(list.capacity(), 4);
+
+		EXPECT_FALSE(list[0].has_value());
+	}
+	{
+		BookList list;
+		list.push(Book{"title"});
+		list.reserve(4);
+		EXPECT_EQ(list[0].value()->title, "title");
+	}
 }
 
 TEST(BookList, get) {

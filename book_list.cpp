@@ -1,5 +1,7 @@
 #include "book_list.h"
 
+#include <utility>
+
 void BookList::push(Book book) {
 	if (_size == _capacity) {
 		reserve(_size + 1);
@@ -19,7 +21,7 @@ void BookList::reserve(size_t size) {
 		return;
 	}
 
-	auto newArray = std::make_unique<Book[]>(0);
+	auto newArray = std::make_unique<Book[]>(newSize);
 
 	for (size_t i = 0; i < _size; i++) {
 		std::swap(newArray[i], _array[i]);
