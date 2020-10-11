@@ -13,6 +13,28 @@ void BookstoreManager::insert(Book book) {
 	_list.insert(std::move(book), index);
 }
 
+void BookstoreManager::remove(Book book) { // NOLINT(performance-unnecessary-value-param)
+	size_t index = findISBN(book.ISBN);
+	if (_list[index].value()->ISBN == book.ISBN) {
+		_list.remove(index);
+	}
+}
+
+void BookstoreManager::removePublisher(std::string publisher) { // NOLINT(performance-unnecessary-value-param)
+	for (size_t i = 0; i < _list.size(); ++i) {
+		if (_list[i].value()->publisher == publisher) {
+			_list.remove(i);
+		}
+	}
+}
+
+void BookstoreManager::search(Book book) const { // NOLINT(performance-unnecessary-value-param)
+	size_t index = findISBN(book.ISBN);
+	if (_list[index].value()->ISBN == book.ISBN) {
+		std::cout << _list[index].value();
+	}
+}
+
 size_t BookstoreManager::findISBN(const std::string& isbn) const {
 	if (_list.size() == 0) {
 		return 0;

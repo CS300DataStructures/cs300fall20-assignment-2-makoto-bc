@@ -46,22 +46,22 @@ public:
 	void insert(Book book);
 	
 	/**
-	 * Removes a book with the same ISBN as given book it it exists.
+	 * Removes a book with the same ISBN as given book if it exists.
 	 * @param book 
 	 */
-//	void remove(Book book);
+	void remove(Book book);
 	
 	/**
 	 * Removes all books with the given publisher.
 	 * @param publisher 
 	 */
-//	void removePublisher(std::string publisher);
+	void removePublisher(std::string publisher);
 	
 	/**
-	 * Prints the contents of given book.
+	 * Prints the contents of book that matches the given book's ISBN.
 	 * @param book 
 	 */
-//	void search(Book book) const;
+	void search(Book book) const;
 
 	size_t findISBN(const std::string& isbn) const;
 
