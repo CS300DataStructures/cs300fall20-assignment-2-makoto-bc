@@ -9,15 +9,15 @@ class BookstoreManager {
 public:
 	BookstoreManager() = default;
 	
-	explicit BookstoreManager(std::initializer_list<Book> list)
+	BookstoreManager(std::initializer_list<Book> list)
 		: _list(list)
 	{}
 	
 	/**
-	 * @return true if the list is empty
+	 * Prints "true" if the list is empty or "false" otherwise.
 	 */
-	bool isEmpty() const {
-		return _list.size() == 0;
+	void isEmpty() const {
+		std::cout << std::boolalpha << (_list.size() == 0) << '\n' << std::endl;
 	}
 	
 	/**
@@ -31,7 +31,7 @@ public:
 	 * Prints the number of books in this list.
 	 */
 	void listSize() const {
-		std::cout << _list.size();
+		std::cout << _list.size() << std::endl;
 	}
 	
 	/**
@@ -63,7 +63,7 @@ public:
 	 */
 	void search(Book book) const;
 
-	size_t findISBN(const std::string& isbn) const;
+	size_t findISBN(int isbn) const;
 
 	bool operator==(const BookstoreManager& rhs) const {
 		return _list == rhs._list;

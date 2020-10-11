@@ -6,6 +6,7 @@ void BookstoreManager::print() const {
 		_list[i].value()->output(std::cout);
 		std::cout << "\n\n";
 	}
+	std::cout << std::flush;
 }
 
 void BookstoreManager::insert(Book book) {
@@ -21,9 +22,10 @@ void BookstoreManager::remove(Book book) { // NOLINT(performance-unnecessary-val
 }
 
 void BookstoreManager::removePublisher(std::string publisher) { // NOLINT(performance-unnecessary-value-param)
-	for (size_t i = 0; i < _list.size(); ++i) {
-		if (_list[i].value()->publisher == publisher) {
-			_list.remove(i);
+	size_t initialSize = _list.size();
+	for (size_t i = 0; i < initialSize; ++i) {
+		if (_list[initialSize - 1 - i].value()->publisher == publisher) {
+			_list.remove(initialSize - 1 - i);
 		}
 	}
 }
@@ -31,11 +33,13 @@ void BookstoreManager::removePublisher(std::string publisher) { // NOLINT(perfor
 void BookstoreManager::search(Book book) const { // NOLINT(performance-unnecessary-value-param)
 	size_t index = findISBN(book.ISBN);
 	if (_list[index].value()->ISBN == book.ISBN) {
-		std::cout << _list[index].value();
+		_list[index].value()->output(std::cout);
+		std::cout << "\n\n";
 	}
+	std::cout << std::flush;
 }
 
-size_t BookstoreManager::findISBN(const std::string& isbn) const {
+size_t BookstoreManager::findISBN(int isbn) const {
 	if (_list.size() == 0) {
 		return 0;
 	}

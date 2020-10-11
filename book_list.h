@@ -28,7 +28,7 @@ public:
 
 	std::optional<Book> remove(size_t index);
 	
-	std::optional<Book*> operator[](size_t index) const;
+	std::optional<Book*> operator[](size_t index) const; // TODO rename to get()
 
 	bool operator==(const BookList& rhs) const;
 	

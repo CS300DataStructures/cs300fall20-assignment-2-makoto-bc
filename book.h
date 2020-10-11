@@ -7,10 +7,23 @@
 
 class Book {
 public:
-	std::string ISBN;
+	int ISBN;
 	std::string title;
 	std::string authors;
 	std::string publisher;
+
+	Book() = default;
+
+	explicit Book(int isbn)
+		: ISBN(isbn)
+	{}
+	
+	explicit Book(std::string title, int isbn, std::string authors, std::string publisher)
+		: title(std::move(title))
+		, ISBN(isbn)
+		, authors(std::move(authors))
+		, publisher(std::move(publisher))
+	{}
 	
 	void output(std::ostream& os) const;
 

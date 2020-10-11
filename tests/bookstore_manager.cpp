@@ -11,33 +11,33 @@ TEST(BookstoreManager, insert) {
 	std::vector<Test> tests {
 		{
 			{},
-			{"a"},
-			{{"a"}},
+			Book(0),
+			{Book(0)},
 		},
 		{
-			{{"a"}},
-			{"b"},
-			{{"a"}, {"b"}},
+			{Book(0)},
+			Book(1),
+			{Book(0), Book(1)},
 		},
 		{
-			{{"b"}},
-			{"a"},
-			{{"a"}, {"b"}},
+			{Book(1)},
+			Book(0),
+			{Book(0), Book(1)},
 		},
 		{
-			{{"a"}, {"c"}},
-			{"b"},
-			{{"a"}, {"b"}, {"c"}},
+			{Book(0), Book(2)},
+			Book(1),
+			{Book(0), Book(1), Book(2)},
 		},
 		{
-			{{"a"}, {"c"}},
-			{"c"},
-			{{"a"}, {"c"}, {"c"}},
+			{Book(0), Book(2)},
+			Book(2),
+			{Book(0), Book(2), Book(2)},
 		},
 		{
-			{{"b"}, {"c"}},
-			{"a"},
-			{{"a"}, {"b"}, {"c"}},
+			{Book(1), Book(2)},
+			Book(0),
+			{Book(0), Book(1), Book(2)},
 		},
 	};
 	
@@ -51,79 +51,79 @@ TEST(BookstoreManager, insert) {
 TEST(BookstoreManager, findISBN) {
 	struct Test {
 		std::initializer_list<Book> list;
-		std::string isbn;
+		int isbn;
 		size_t expected;
 	};
 
 	std::vector<Test> tests {
 		{
 			{},
-			"",
+			0,
 			0,
 		},
 		{
-			{{"b"}},
-			"a",
+			{Book(1)},
+			0,
 			0,
 		},
 		{
-			{{"b"}},
-			"b",
+			{Book(1)},
+			1,
 			0,
 		},
 		{
-			{{"b"}},
-			"c",
+			{Book(1)},
+			2,
 			1,
 		},
 		{
-			{{"a"}, {"b"}},
-			"a",
+			{Book(0), Book(1)},
+			0,
 			0,
 		},
 		{
-			{{"a"}, {"b"}},
-			"b",
+			{Book(0), Book(1)},
+			1,
 			1,
 		},
 		{
-			{{"a"}, {"b"}},
-			"c",
+			{Book(0), Book(1)},
+			2,
 			2,
 		},
 		{
-			{{"a"}, {"c"}},
-			"b",
+			{Book(0), Book(2)},
+			1,
 			1,
 		},
 		{
-			{{"b"}, {"c"}},
-			"a",
+			{Book(1), Book(2)},
+			0,
 			0,
 		},
 		{
-			{{"a"}, {"a"},{"b"}},
-			"a",
+			{Book(0), Book(0), Book(1)},
+			0,
 			1,
 		},
 		{
-			{{"a"}, {"b"},{"b"}},
-			"b",
+			{Book(0), Book(1), Book(1)},
+			1,
 			1,
 		},
 		{
-			{{"a"}, {"b"},{"c"}},
-			"b",
+			{Book(0), Book(1), Book(2)},
+			1,
 			1,
 		},
 		{
-			{{"a"}, {"c"},{"e"}},
-			"b",
+			{Book(0), Book(2), Book(4)},
+			1,
 			1,
 		},
 		{
-			{{"a"}, {"c"},{"e"}},
-			"d",
+			{Book(0), Book(2), Book(4)},
+			3,
 			2,
 		},
 	};
