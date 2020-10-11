@@ -12,6 +12,8 @@ public:
 		  , _size(0)
 		  , _capacity(0) {}
 		  
+	explicit BookList(std::initializer_list<Book> list);
+		  
 	size_t size() const {
 		return _size;
 	}
@@ -27,6 +29,9 @@ public:
 	std::optional<Book> remove(size_t index);
 	
 	std::optional<Book*> operator[](size_t index) const;
+
+	bool operator==(const BookList& rhs) const;
+	
 private:
 	std::unique_ptr<Book[]> _array;
 	size_t _size;

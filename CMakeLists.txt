@@ -7,6 +7,7 @@ set(
     SOURCES
     bookstore_manager.cpp
     book_list.cpp
+    book.cpp
 )
 
 add_subdirectory(tests)

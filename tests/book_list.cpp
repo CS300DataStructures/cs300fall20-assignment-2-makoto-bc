@@ -1,6 +1,17 @@
 #include <gtest/gtest.h>
 #include "../book_list.h"
 
+TEST(BookList, listConstructor) {
+	{
+		BookList list({});
+		EXPECT_EQ(list.size(), 0);
+	}
+	{
+		BookList list({Book{}});
+		EXPECT_EQ(list.size(), 1);
+	}
+}
+
 TEST(BookList, insert) {
 	BookList list;
 	list.insert(Book{}, 1);
@@ -49,9 +60,9 @@ TEST(BookList, reserve) {
 	}
 	{
 		BookList list;
-		list.insert(Book{"title"}, 0);
+		list.insert(Book{"a"}, 0);
 		list.reserve(4);
-		EXPECT_EQ(*list[0].value(), Book{"title"});
+		EXPECT_EQ(*list[0].value(), Book{"a"});
 	}
 }
 
@@ -59,8 +70,8 @@ TEST(BookList, remove) {
 	BookList list;
 	EXPECT_FALSE(list.remove(0).has_value());
 	
-	list.insert(Book{"title"}, 0);
-	EXPECT_EQ(list.remove(0).value(), Book{"title"});
+	list.insert(Book{"a"}, 0);
+	EXPECT_EQ(list.remove(0).value(), Book{"a"});
 	EXPECT_EQ(list.size(), 0);
 	
 	// Removing first item
@@ -88,4 +99,11 @@ TEST(BookList, get) {
 	
 	list.insert(Book{"0"}, 0);
 	EXPECT_EQ(*list[0].value(), Book{"0"});
+}
+
+TEST(BookList, unequal) {
+	EXPECT_EQ(BookList(), BookList());
+	EXPECT_FALSE(BookList({{"a"}}) == BookList({}));
+	EXPECT_EQ(BookList({{"a"}}), BookList({{"a"}}));
+	EXPECT_FALSE(BookList({{"a"}}) == BookList({{"b"}}));
 }

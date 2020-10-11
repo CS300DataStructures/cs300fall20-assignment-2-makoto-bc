@@ -2,6 +2,14 @@
 
 #include <utility>
 
+BookList::BookList(std::initializer_list<Book> list) : BookList() {
+	size_t i = 0;
+	for (const Book& book : list) {
+		insert(book, i);
+		++i;
+	}
+}
+
 void BookList::insert(Book book, size_t index) {
 	if (index >= _size + 1) {
 		return;
@@ -65,4 +73,18 @@ std::optional<Book*> BookList::operator[](size_t index) const {
 	}
 	
 	return &_array[index];
+}
+
+bool BookList::operator==(const BookList& rhs) const {
+	if (_size != rhs._size) {
+		return false;
+	}
+	
+	for (size_t i = 0; i < _size; ++i) {
+		if (_array[i] != rhs._array[i]) {
+			return false;
+		} 
+	}
+	
+	return true;
 }
