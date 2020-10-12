@@ -16,7 +16,7 @@ int main() {
 	//insert 4 books
 	string title, authors, publisher;
 	int isbn;
-	for(int i=0;i<3;i++){
+	for(int i=0;i<4;i++){
 		cout<<"Enter book title:";
 		getline(cin, title);
 		cout<<"Enter authors:";
@@ -24,7 +24,7 @@ int main() {
 		cout<<"Enter isbn:";
 		cin>>isbn;
 		cin.ignore();
-		cout<<"Enter publisher";
+		cout<<"Enter publisher:";
 		getline(cin, publisher);
 		Book aBook(title, isbn, authors, publisher);
 		bookstoreManager.insert(aBook);
