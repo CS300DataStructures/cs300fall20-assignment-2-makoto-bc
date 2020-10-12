@@ -11,13 +11,13 @@ public:
 		: _array(std::make_unique<Book[]>(0))
 		  , _size(0)
 		  , _capacity(0) {}
-		  
+
 	BookList(std::initializer_list<Book> list);
-		  
+
 	size_t size() const {
 		return _size;
 	}
-	
+
 	size_t capacity() const {
 		return _capacity;
 	}
@@ -31,7 +31,7 @@ public:
 	std::optional<Book*> get(size_t index) const;
 
 	bool operator==(const BookList& rhs) const;
-	
+
 private:
 	std::unique_ptr<Book[]> _array;
 	size_t _size;

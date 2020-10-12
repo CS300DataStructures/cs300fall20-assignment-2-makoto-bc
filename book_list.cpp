@@ -2,7 +2,8 @@
 
 #include <utility>
 
-BookList::BookList(std::initializer_list<Book> list) : BookList() {
+BookList::BookList(std::initializer_list<Book> list)
+	: BookList() {
 	size_t i = 0;
 	for (const Book& book : list) {
 		insert(book, i);

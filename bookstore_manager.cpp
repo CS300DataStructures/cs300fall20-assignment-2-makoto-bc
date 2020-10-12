@@ -49,7 +49,7 @@ size_t BookstoreManager::findISBN(int isbn) const {
 	size_t left = 0;
 	size_t right = _list.size() - 1;
 	size_t middle = 0;
-	
+
 	while (left <= right) {
 		middle = (left + right) / 2;
 		if (_list.get(middle).value()->ISBN < isbn) {
@@ -63,7 +63,7 @@ size_t BookstoreManager::findISBN(int isbn) const {
 			return middle;
 		}
 	}
-	
+
 	if (_list.get(middle).value()->ISBN < isbn) {
 		return middle + 1;
 	}
