@@ -48,6 +48,46 @@ TEST(BookstoreManager, insert) {
 	}
 }
 
+TEST(BookstoreManager, removePublisher) {
+	struct Test {
+		std::initializer_list<Book> list;
+		std::string publisher;
+		std::initializer_list<Book> expectedList;
+	};
+
+	std::vector<Test> tests {
+		{
+			{},
+			"",
+			{},
+		},
+		{
+			{Book("", 0, "", "a")},
+			{""},
+			{Book("", 0, "", "a")},
+		},
+		{
+			{Book("", 0, "", "a")},
+			{"a"},
+			{},
+		},
+		{
+			{
+				Book("", 0, "", "a"),
+				Book("", 0, "", "a"),
+			},
+			{"a"},
+			{},
+		},
+	};
+
+	for (size_t i = 0; i < tests.size(); ++i) {
+		BookstoreManager result(tests[i].list);
+		result.removePublisher(tests[i].publisher);
+		EXPECT_EQ(result, BookstoreManager(tests[i].expectedList)) << i;
+	}
+}
+
 TEST(BookstoreManager, findISBN) {
 	struct Test {
 		std::initializer_list<Book> list;

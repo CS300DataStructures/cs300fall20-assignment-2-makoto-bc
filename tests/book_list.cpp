@@ -1,6 +1,17 @@
 #include <gtest/gtest.h>
 #include "../book_list.h"
 
+std::ostream& operator<<(std::ostream& os, const BookList& list) {
+	os << '{';
+	for (size_t i = 0; i < list.size(); ++i) {
+		os << list.get(i).value()->ISBN;
+		if (i < list.size() - 1) {
+			os << ',';
+		}
+	}
+	return os << '}';
+}
+
 TEST(BookList, listConstructor) {
 	{
 		BookList list({});

@@ -22,12 +22,14 @@ void BookstoreManager::remove(Book book) { // NOLINT(performance-unnecessary-val
 }
 
 void BookstoreManager::removePublisher(std::string publisher) { // NOLINT(performance-unnecessary-value-param)
-	size_t initialSize = _list.size();
-	for (size_t i = 0; i < initialSize; ++i) {
-		if (_list.get(initialSize - 1 - i).value()->publisher == publisher) {
-			_list.remove(initialSize - 1 - i);
+	BookList newList;
+	size_t newListIndex = 0;
+	for (size_t i = 0; i < _list.size(); ++i) {
+		if (_list.get(i).value()->publisher != publisher) {
+			newList.insert(std::move(*_list.get(i).value()), newListIndex);
 		}
 	}
+	_list = std::move(newList);
 }
 
 void BookstoreManager::search(Book book) const { // NOLINT(performance-unnecessary-value-param)
