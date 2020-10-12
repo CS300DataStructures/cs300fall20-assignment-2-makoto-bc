@@ -7,27 +7,28 @@
 
 class Book {
 public:
-	int ISBN;
+	int isbn;
 	std::string title;
 	std::string authors;
 	std::string publisher;
 
-	Book() = default;
+	Book()
+		: isbn(0) {}
 
 	explicit Book(int isbn)
-		: ISBN(isbn) {}
+		: isbn(isbn) {}
 
 	explicit Book(std::string title, int isbn, std::string authors, std::string publisher)
 		: title(std::move(title))
-		  , ISBN(isbn)
+		  , isbn(isbn)
 		  , authors(std::move(authors))
 		  , publisher(std::move(publisher)) {}
 
 	void output(std::ostream& os) const;
 
 	bool operator==(const Book& rhs) const {
-		return std::tie(title, authors, publisher, ISBN)
-			== std::tie(rhs.title, rhs.authors, rhs.publisher, rhs.ISBN);
+		return std::tie(title, authors, publisher, isbn)
+			== std::tie(rhs.title, rhs.authors, rhs.publisher, rhs.isbn);
 	}
 
 	bool operator!=(const Book& rhs) const {

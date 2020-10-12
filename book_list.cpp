@@ -1,7 +1,5 @@
 #include "book_list.h"
 
-#include <utility>
-
 BookList::BookList(std::initializer_list<Book> list)
 	: BookList() {
 	size_t i = 0;

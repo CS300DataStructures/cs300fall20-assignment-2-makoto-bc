@@ -4,7 +4,7 @@
 std::ostream& operator<<(std::ostream& os, const BookList& list) {
 	os << '{';
 	for (size_t i = 0; i < list.size(); ++i) {
-		os << list.get(i).value()->ISBN;
+		os << list.get(i).value()->isbn;
 		if (i < list.size() - 1) {
 			os << ',';
 		}

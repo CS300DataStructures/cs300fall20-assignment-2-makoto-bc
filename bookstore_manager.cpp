@@ -10,13 +10,13 @@ void BookstoreManager::print() const {
 }
 
 void BookstoreManager::insert(Book book) {
-	size_t index = findISBN(book.ISBN);
+	size_t index = findISBN(book.isbn);
 	_list.insert(std::move(book), index);
 }
 
 void BookstoreManager::remove(Book book) { // NOLINT(performance-unnecessary-value-param)
-	size_t index = findISBN(book.ISBN);
-	if (_list.get(index).value()->ISBN == book.ISBN) {
+	size_t index = findISBN(book.isbn);
+	if (_list.get(index).value()->isbn == book.isbn) {
 		_list.remove(index);
 	}
 }
@@ -33,8 +33,8 @@ void BookstoreManager::removePublisher(std::string publisher) { // NOLINT(perfor
 }
 
 void BookstoreManager::search(Book book) const { // NOLINT(performance-unnecessary-value-param)
-	size_t index = findISBN(book.ISBN);
-	if (_list.get(index).value()->ISBN == book.ISBN) {
+	size_t index = findISBN(book.isbn);
+	if (_list.get(index).value()->isbn == book.isbn) {
 		_list.get(index).value()->output(std::cout);
 		std::cout << "\n\n";
 	}
@@ -52,9 +52,9 @@ size_t BookstoreManager::findISBN(int isbn) const {
 
 	while (left <= right) {
 		middle = (left + right) / 2;
-		if (_list.get(middle).value()->ISBN < isbn) {
+		if (_list.get(middle).value()->isbn < isbn) {
 			left = middle + 1;
-		} else if (_list.get(middle).value()->ISBN > isbn) {
+		} else if (_list.get(middle).value()->isbn > isbn) {
 			if (middle == 0) {
 				return 0;
 			}
@@ -64,7 +64,7 @@ size_t BookstoreManager::findISBN(int isbn) const {
 		}
 	}
 
-	if (_list.get(middle).value()->ISBN < isbn) {
+	if (_list.get(middle).value()->isbn < isbn) {
 		return middle + 1;
 	}
 
