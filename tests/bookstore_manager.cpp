@@ -7,7 +7,7 @@ TEST(BookstoreManager, insert) {
 		Book book;
 		std::initializer_list<Book> expectedList;
 	};
-	
+
 	std::vector<Test> tests {
 		{
 			{},
@@ -40,7 +40,7 @@ TEST(BookstoreManager, insert) {
 			{Book(0), Book(1), Book(2)},
 		},
 	};
-	
+
 	for (size_t i = 0; i < tests.size(); ++i) {
 		BookstoreManager result(tests[i].list);
 		result.insert(tests[i].book);

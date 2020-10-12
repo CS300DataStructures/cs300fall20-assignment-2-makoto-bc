@@ -20,24 +20,24 @@ TEST(BookList, insert) {
 
 	list.insert(Book(0), 0);
 	EXPECT_EQ(list.size(), 1);
-	EXPECT_EQ(*list[0].value(), Book(0));
+	EXPECT_EQ(*list.get(0).value(), Book(0));
 
 	list.insert(Book(1), 0);
 	EXPECT_EQ(list.size(), 2);
-	EXPECT_EQ(*list[0].value(), Book(1));
-	EXPECT_EQ(*list[1].value(), Book(0));
+	EXPECT_EQ(*list.get(0).value(), Book(1));
+	EXPECT_EQ(*list.get(1).value(), Book(0));
 
 	list.insert(Book(2), 2);
 	EXPECT_EQ(list.size(), 3);
-	EXPECT_EQ(*list[0].value(), Book(1));
-	EXPECT_EQ(*list[1].value(), Book(0));
-	EXPECT_EQ(*list[2].value(), Book(2));
+	EXPECT_EQ(*list.get(0).value(), Book(1));
+	EXPECT_EQ(*list.get(1).value(), Book(0));
+	EXPECT_EQ(*list.get(2).value(), Book(2));
 
 	list.insert(Book(3), 1);
-	EXPECT_EQ(*list[0].value(), Book(1));
-	EXPECT_EQ(*list[1].value(), Book(3));
-	EXPECT_EQ(*list[2].value(), Book(0));
-	EXPECT_EQ(*list[3].value(), Book(2));
+	EXPECT_EQ(*list.get(0).value(), Book(1));
+	EXPECT_EQ(*list.get(1).value(), Book(3));
+	EXPECT_EQ(*list.get(2).value(), Book(0));
+	EXPECT_EQ(*list.get(3).value(), Book(2));
 }
 
 TEST(BookList, reserve) {
@@ -56,30 +56,30 @@ TEST(BookList, reserve) {
 		list.reserve(0);
 		EXPECT_EQ(list.capacity(), 4);
 
-		EXPECT_FALSE(list[0].has_value());
+		EXPECT_FALSE(list.get(0).has_value());
 	}
 	{
 		BookList list;
 		list.insert(Book(0), 0);
 		list.reserve(4);
-		EXPECT_EQ(*list[0].value(), Book(0));
+		EXPECT_EQ(*list.get(0).value(), Book(0));
 	}
 }
 
 TEST(BookList, remove) {
 	BookList list;
 	EXPECT_FALSE(list.remove(0).has_value());
-	
+
 	list.insert(Book(0), 0);
 	EXPECT_EQ(list.remove(0).value(), Book(0));
 	EXPECT_EQ(list.size(), 0);
-	
+
 	// Removing first item
 	list.insert(Book(0), 0);
 	list.insert(Book(1), 1);
 	EXPECT_EQ(list.remove(0).value(), Book(0));
 	EXPECT_EQ(list.size(), 1);
-	EXPECT_EQ(*list[0].value(), Book(1));
+	EXPECT_EQ(*list.get(0).value(), Book(1));
 
 	EXPECT_EQ(list.remove(0).value(), Book(1));
 	EXPECT_EQ(list.size(), 0);
@@ -90,15 +90,15 @@ TEST(BookList, remove) {
 	EXPECT_EQ(list.remove(1).value(), Book(1));
 	EXPECT_EQ(list.size(), 1);
 	EXPECT_EQ(list.capacity(), 2);
-	EXPECT_EQ(*list[0].value(), Book(0));
+	EXPECT_EQ(*list.get(0).value(), Book(0));
 }
 
 TEST(BookList, get) {
 	BookList list;
-	EXPECT_FALSE(list[0].has_value());
-	
+	EXPECT_FALSE(list.get(0).has_value());
+
 	list.insert(Book(0), 0);
-	EXPECT_EQ(*list[0].value(), Book(0));
+	EXPECT_EQ(*list.get(0).value(), Book(0));
 }
 
 TEST(BookList, unequal) {

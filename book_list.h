@@ -12,7 +12,7 @@ public:
 		  , _size(0)
 		  , _capacity(0) {}
 		  
-	explicit BookList(std::initializer_list<Book> list);
+	BookList(std::initializer_list<Book> list);
 		  
 	size_t size() const {
 		return _size;
@@ -27,8 +27,8 @@ public:
 	void reserve(size_t capacity);
 
 	std::optional<Book> remove(size_t index);
-	
-	std::optional<Book*> operator[](size_t index) const; // TODO rename to get()
+
+	std::optional<Book*> get(size_t index) const;
 
 	bool operator==(const BookList& rhs) const;
 	
