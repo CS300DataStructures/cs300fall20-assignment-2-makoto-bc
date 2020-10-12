@@ -1,3 +1,8 @@
+// assignment-2
+// Makoto Emura
+// 10/12/2020
+// Container for books with functionality for insertion, removal, binary search and text output.
+
 #include <iostream>
 #include "book.h"
 #include "bookstore_manager.h"

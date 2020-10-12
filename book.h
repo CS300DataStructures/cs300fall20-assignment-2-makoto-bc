@@ -15,6 +15,9 @@ public:
 	Book()
 		: isbn(0) {}
 
+	/**
+	 * Sets ISBN only; all other strings are left empty.
+	 */
 	explicit Book(int isbn)
 		: isbn(isbn) {}
 
@@ -24,6 +27,9 @@ public:
 		  , authors(std::move(authors))
 		  , publisher(std::move(publisher)) {}
 
+	/**
+	 * Writes a representation of this book for UI display.
+	 */
 	void output(std::ostream& os) const;
 
 	bool operator==(const Book& rhs) const {
