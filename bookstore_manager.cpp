@@ -18,6 +18,8 @@ void BookstoreManager::remove(Book book) { // NOLINT(performance-unnecessary-val
 	size_t index = findISBN(book.isbn);
 	if (_list.get(index).value()->isbn == book.isbn) {
 		_list.remove(index);
+	} else {
+		std::cout << "Not Found" << std::endl;
 	}
 }
 
@@ -27,8 +29,14 @@ void BookstoreManager::removePublisher(std::string publisher) { // NOLINT(perfor
 	for (size_t i = 0; i < _list.size(); ++i) {
 		if (_list.get(i).value()->publisher != publisher) {
 			newList.insert(std::move(*_list.get(i).value()), newListIndex);
+			++newListIndex;
 		}
 	}
+
+	if (newList.size() == _list.size()) {
+		std::cout << "Not Found" << std::endl;
+	}
+
 	_list = std::move(newList);
 }
 
@@ -36,9 +44,10 @@ void BookstoreManager::search(Book book) const { // NOLINT(performance-unnecessa
 	size_t index = findISBN(book.isbn);
 	if (_list.get(index).value()->isbn == book.isbn) {
 		_list.get(index).value()->output(std::cout);
-		std::cout << "\n\n";
+		std::cout << "\n\n" << std::flush;
+	} else {
+		std::cout << "Not Found" << std::endl;
 	}
-	std::cout << std::flush;
 }
 
 size_t BookstoreManager::findISBN(int isbn) const {

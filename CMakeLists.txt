@@ -12,6 +12,6 @@ set(
 
 add_subdirectory(tests)
 
-add_executable(assignment-2 main.cpp ${SOURCES})
+add_executable(assignment-2 ass2.cpp ${SOURCES})
 
 add_library(libassignment-2 STATIC ${SOURCES})

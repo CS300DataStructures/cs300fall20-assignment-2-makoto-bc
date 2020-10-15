@@ -1,6 +1,11 @@
+// assignment-2
+// Makoto Emura
+// 10/12/2020
+// Container for books with functionality for insertion, removal, binary search and text output.
+
 #include <iostream>
-#include "Book.h"
-#include "BookstoreManager.h"
+#include "book.h"
+#include "bookstore_manager.h"
 
 using namespace std;
 
@@ -31,14 +36,14 @@ int main() {
     bookstoreManager.print();
 
     //search for books
-    cout<<”Searching…”<<endl;
+    cout<<"Searching…"<<endl;
     cout<<"ISBN:";
     cin>>isbn;
     Book b2(isbn);
     bookstoreManager.search(b2);
 
     //remove a book
-    cout<<”Removing…”<<endl;
+    cout<<"Removing…"<<endl;
     cout<<"ISBN:";
     cin>>isbn;
     Book b1(isbn);
@@ -48,7 +53,7 @@ int main() {
     bookstoreManager.print();
 
     //remove books from a particular publisher
-    cout<<”Removing publisher”<<endl;
+    cout<<"Removing publisher"<<endl;
     cout<<"Publisher:";
     cin>>publisher; 
     bookstoreManager.removePublisher(publisher);

@@ -67,6 +67,17 @@ TEST(BookstoreManager, removePublisher) {
 			{Book("", 0, "", "a")},
 		},
 		{
+			{
+				Book("", 0, "", "a"),
+				Book("", 0, "", "b"),
+			},
+			{""},
+			{
+				Book("", 0, "", "a"),
+				Book("", 0, "", "b"),
+			},
+		},
+		{
 			{Book("", 0, "", "a")},
 			{"a"},
 			{},
