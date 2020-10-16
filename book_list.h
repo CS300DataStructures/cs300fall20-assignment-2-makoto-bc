@@ -18,6 +18,13 @@ public:
 		  , _size(0)
 		  , _capacity(0) {}
 
+	BookList(const BookList& list) : BookList() {
+		reserve(list._size);
+		for (size_t i = 0; i < list._size; ++i) {
+			insert(list._array[i], i);
+		}
+	}
+
 	/**
 	 * Copies all books from given list to initialize BookList.
 	 */
@@ -57,6 +64,8 @@ public:
 	std::optional<Book*> get(size_t index) const;
 
 	bool operator==(const BookList& rhs) const;
+
+	BookList& operator=(BookList&& rhs) noexcept;
 
 private:
 	std::unique_ptr<Book[]> _array;

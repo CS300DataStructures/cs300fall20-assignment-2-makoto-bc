@@ -3,9 +3,9 @@
 
 TEST(BookstoreManager, insert) {
 	struct Test {
-		std::initializer_list<Book> list;
+		BookstoreManager manager;
 		Book book;
-		std::initializer_list<Book> expectedList;
+		BookstoreManager expected;
 	};
 
 	std::vector<Test> tests {
@@ -42,17 +42,16 @@ TEST(BookstoreManager, insert) {
 	};
 
 	for (size_t i = 0; i < tests.size(); ++i) {
-		BookstoreManager result(tests[i].list);
-		result.insert(tests[i].book);
-		EXPECT_EQ(result, BookstoreManager(tests[i].expectedList)) << i;
+		tests[i].manager.insert(tests[i].book);
+		EXPECT_EQ(tests[i].manager, tests[i].expected) << i;
 	}
 }
 
 TEST(BookstoreManager, removePublisher) {
 	struct Test {
-		std::initializer_list<Book> list;
+		BookstoreManager manager;
 		std::string publisher;
-		std::initializer_list<Book> expectedList;
+		BookstoreManager expected;
 	};
 
 	std::vector<Test> tests {
@@ -93,15 +92,14 @@ TEST(BookstoreManager, removePublisher) {
 	};
 
 	for (size_t i = 0; i < tests.size(); ++i) {
-		BookstoreManager result(tests[i].list);
-		result.removePublisher(tests[i].publisher);
-		EXPECT_EQ(result, BookstoreManager(tests[i].expectedList)) << i;
+		tests[i].manager.removePublisher(tests[i].publisher);
+		EXPECT_EQ(tests[i].manager, tests[i].expected) << i;
 	}
 }
 
 TEST(BookstoreManager, findISBN) {
 	struct Test {
-		std::initializer_list<Book> list;
+		BookstoreManager manager;
 		int isbn;
 		size_t expected;
 	};
@@ -180,8 +178,7 @@ TEST(BookstoreManager, findISBN) {
 	};
 
 	for (size_t i = 0; i < tests.size(); ++i) {
-		BookstoreManager manager(tests[i].list);
-		size_t result = manager.findISBN(tests[i].isbn);
+		size_t result = tests[i].manager.findISBN(tests[i].isbn);
 		EXPECT_EQ(result, tests[i].expected) << i;
 	}
 }

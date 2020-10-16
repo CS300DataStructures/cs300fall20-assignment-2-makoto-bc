@@ -87,3 +87,12 @@ bool BookList::operator==(const BookList& rhs) const {
 
 	return true;
 }
+
+BookList& BookList::operator=(BookList&& rhs) noexcept {
+	reserve(rhs.size());
+	_size = 0;
+	for (size_t i = 0; i < rhs.size(); ++i) {
+		insert(std::move(*rhs.get(i).value()), i);
+	}
+	return *this;
+}
