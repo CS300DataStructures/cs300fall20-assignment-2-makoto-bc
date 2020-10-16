@@ -2,7 +2,6 @@
 #define ASSIGNMENT_2__BOOK_LIST_H_
 
 #include <memory>
-#include <optional>
 #include "book.h"
 
 /**
@@ -21,7 +20,7 @@ public:
 	BookList(const BookList& list) : BookList() {
 		reserve(list._size);
 		for (size_t i = 0; i < list._size; ++i) {
-			insert(list._array[i], i);
+			insert(list[i], i);
 		}
 	}
 
@@ -53,17 +52,21 @@ public:
 	void reserve(size_t capacity);
 
 	/**
-	 * Removes book at index and shifts down all books after index, if index is valid.
-	 * @return The removed book if index was valid
+	 * Removes book at index and shifts down all books after index.
+	 * @return The removed book
+	 * @throw index is out of range
 	 */
-	std::optional<Book> remove(size_t index);
+	Book remove(size_t index);
 
 	/**
-	 * @return Book at index if it exists, or nothing if it does not exist
+	 * @return Book at index
+	 * @throw index is out of range
 	 */
-	std::optional<Book*> get(size_t index) const;
+	Book& operator[](size_t index) const;
 
 	bool operator==(const BookList& rhs) const;
+
+	friend std::ostream& operator<<(std::ostream& os, const BookList& rhs);
 
 	BookList& operator=(BookList&& rhs) noexcept;
 

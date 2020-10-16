@@ -51,9 +51,9 @@ void BookList::reserve(size_t capacity) {
 	_capacity = newCapacity;
 }
 
-std::optional<Book> BookList::remove(size_t index) {
+Book BookList::remove(size_t index) {
 	if (index >= _size) {
-		return {};
+		throw std::out_of_range("index is out of range");
 	}
 
 	Book tmp = std::move(_array[index]);
@@ -66,12 +66,12 @@ std::optional<Book> BookList::remove(size_t index) {
 	return tmp;
 }
 
-std::optional<Book*> BookList::get(size_t index) const {
+Book& BookList::operator[](size_t index) const {
 	if (index >= _size) {
-		return {};
+		throw std::out_of_range("index is out of range");
 	}
 
-	return &_array[index];
+	return _array[index];
 }
 
 bool BookList::operator==(const BookList& rhs) const {
@@ -88,11 +88,20 @@ bool BookList::operator==(const BookList& rhs) const {
 	return true;
 }
 
-BookList& BookList::operator=(BookList&& rhs) noexcept {
-	reserve(rhs.size());
-	_size = 0;
+std::ostream& operator<<(std::ostream& os, const BookList& rhs) {
+	os << '{';
 	for (size_t i = 0; i < rhs.size(); ++i) {
-		insert(std::move(*rhs.get(i).value()), i);
+		os << rhs[i].isbn;
+		if (i < rhs.size() - 1) {
+			os << ',';
+		}
 	}
+	return os << '}';
+}
+
+BookList& BookList::operator=(BookList&& rhs) noexcept {
+	_array = std::move(rhs._array);
+	_size = rhs._size;
+	_capacity = rhs._capacity;
 	return *this;
 }
