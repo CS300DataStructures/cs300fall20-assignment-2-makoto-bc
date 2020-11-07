@@ -9,6 +9,20 @@
 
 using namespace std;
 
+// Inputs valid ISBN.
+int inputISBN() {
+	std::string s;
+	while (true) {
+		std::cout << "Enter isbn:";
+		std::getline(std::cin, s);
+		try {
+			return std::stoi(s);
+		} catch (...) {
+			continue;
+		}
+	}
+}
+
 int main() { 
     BookstoreManager bookstoreManager;
 
@@ -23,9 +37,7 @@ int main() {
         getline(std::cin, title);
         cout<<"Enter authors:";
 		getline(std::cin, authors);
-        cout<<"Enter isbn:"; 
-        cin>>isbn;
-        cin.ignore();
+        isbn = inputISBN();
         cout<<"Enter publisher";
 		getline(std::cin, publisher);
         Book aBook(title, isbn, authors, publisher);
@@ -38,17 +50,13 @@ int main() {
 
     //search for books
     cout<<"Searching…"<<endl;
-    cout<<"ISBN:";
-    cin>>isbn;
-	cin.ignore();
+	isbn = inputISBN();
     Book b2(isbn);
     bookstoreManager.search(b2);
 
     //remove a book
     cout<<"Removing…"<<endl;
-    cout<<"ISBN:";
-    cin>>isbn;
-	cin.ignore();
+	isbn = inputISBN();
     Book b1(isbn);
     bookstoreManager.remove(b1);
 
